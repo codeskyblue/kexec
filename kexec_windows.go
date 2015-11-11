@@ -1,4 +1,4 @@
-package kproc
+package kexec
 
 import (
 	"os"
@@ -6,13 +6,13 @@ import (
 	"strconv"
 )
 
-func ProcCommand(cmd *exec.Cmd) *Process {
-	return &Process{
-		Cmd: cmd,
+func Command(name string, arg ...string) *Process {
+	return &KCommand{
+		Cmd: exec.Command(name, arg...),
 	}
 }
 
-func ProcString(command string) *Process {
+func CommandString(command string) *Process {
 	cmd := exec.Command("cmd", "/c", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
@@ -21,7 +21,7 @@ func ProcString(command string) *Process {
 	}
 }
 
-func (p *Process) Terminate(sig os.Signal) (err error) {
+func (p *KCommand) Terminate(sig os.Signal) (err error) {
 	if p.Process == nil {
 		return nil
 	}
