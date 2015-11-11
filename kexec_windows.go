@@ -6,17 +6,17 @@ import (
 	"strconv"
 )
 
-func Command(name string, arg ...string) *Process {
+func Command(name string, arg ...string) *KCommand {
 	return &KCommand{
 		Cmd: exec.Command(name, arg...),
 	}
 }
 
-func CommandString(command string) *Process {
+func CommandString(command string) *KCommand {
 	cmd := exec.Command("cmd", "/c", command)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	return &Process{
+	return &KCommand{
 		Cmd: cmd,
 	}
 }
