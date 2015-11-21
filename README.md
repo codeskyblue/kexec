@@ -1,4 +1,4 @@
-# kproc
+# kexec
 [![GoDoc](https://godoc.org/github.com/codeskyblue/kexec?status.svg)](https://godoc.org/github.com/codeskyblue/kexec)
 
 This is a golang lib, add a `Terminate` command to exec.
@@ -11,7 +11,7 @@ This lib has been used in [fswatch](https://github.com/codeskyblue/fswatch).
 
 	go get -v github.com/codeskyblue/kexec
 
-example: see more [examples](examples)
+example1: see more [examples](examples)
 
 	package main
 	
@@ -21,4 +21,16 @@ example: see more [examples](examples)
 		p := kexec.CommandString("python flask_main.py")
 		p.Start()
 		p.Terminate(syscall.SIGKILL)
+	}
+
+example2:
+
+	package main
+
+	import "github.com/codeskyblue/kexec"
+
+	func main(){
+		p := kexec.Command("python", "flask_main.py")
+		p.Start()
+		p.Terminate(syscall.SIGINT)
 	}
