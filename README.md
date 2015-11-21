@@ -11,19 +11,8 @@ This lib has been used in [fswatch](https://github.com/codeskyblue/fswatch).
 
 	go get -v github.com/codeskyblue/kexec
 
-example1: see more [examples](examples)
 
-	package main
-	
-	import "github.com/codeskyblue/kexec"
-
-	func main() {
-		p := kexec.CommandString("python flask_main.py")
-		p.Start()
-		p.Terminate(syscall.SIGKILL)
-	}
-
-example2:
+example1:
 
 	package main
 
@@ -33,4 +22,18 @@ example2:
 		p := kexec.Command("python", "flask_main.py")
 		p.Start()
 		p.Terminate(syscall.SIGINT)
+	}
+	
+example2: see more [examples](examples)
+
+	package main
+	
+	import "github.com/codeskyblue/kexec"
+
+	func main() {
+		// In unix will call: bash -c "python flask_main.py"
+		// In windows will call: cmd /c "python flask_main.py"
+		p := kexec.CommandString("python flask_main.py")
+		p.Start()
+		p.Terminate(syscall.SIGKILL)
 	}
