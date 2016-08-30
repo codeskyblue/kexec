@@ -32,4 +32,16 @@ func TestCommand(t *testing.T) {
 		So(err, ShouldNotBeNil)
 		//So(err.Error(), ShouldEqual, "signal: interrupt")
 	})
+
+	Convey("Should ok with call Wait twice", t, func() {
+		cmd := CommandString("not-exists-command-xxl213 true")
+		var err error
+		err = cmd.Start()
+		So(err, ShouldBeNil)
+
+		err1 := cmd.Wait()
+		So(err1, ShouldNotBeNil)
+		err2 := cmd.Wait()
+		So(err1, ShouldEqual, err2)
+	})
 }
