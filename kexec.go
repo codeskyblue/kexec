@@ -16,6 +16,13 @@ type KCommand struct {
 	mu       sync.Mutex
 }
 
+func (c *KCommand) Run() error {
+	if err := c.Start(); err != nil {
+		return err
+	}
+	return c.Wait()
+}
+
 func (k *KCommand) Wait() error {
 	if k.Process == nil {
 		return errors.New("exec: not started")
