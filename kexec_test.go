@@ -2,6 +2,7 @@ package kexec
 
 import (
 	"os"
+	"os/user"
 	"syscall"
 	"testing"
 	"time"
@@ -43,5 +44,22 @@ func TestCommand(t *testing.T) {
 		So(err1, ShouldNotBeNil)
 		err2 := cmd.Wait()
 		So(err1, ShouldEqual, err2)
+	})
+
+	Convey("Set user works", t, func() {
+		u, err := user.Current()
+		So(err, ShouldBeNil)
+		// Set user must be root
+		if u.Uid != "0" {
+			return
+		}
+
+		cmd := Command("whoami")
+		err = cmd.SetUser("qard2")
+		So(err, ShouldBeNil)
+
+		output, err := cmd.Output()
+		So(err, ShouldBeNil)
+		So(string(output), ShouldEqual, "qard2\n")
 	})
 }
