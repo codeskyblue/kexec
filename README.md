@@ -9,7 +9,9 @@ This lib has been used in [fswatch](https://github.com/codeskyblue/fswatch).
 
 ## Usage
 
-	go get -v github.com/codeskyblue/kexec
+```
+go get -v github.com/codeskyblue/kexec
+```
 
 
 example1:
@@ -58,6 +60,14 @@ func main() {
 	p.SetUser("codeskyblue") // Only works on darwin and linux
 	p.Run()
 }
+```
+
+## Command line usage 
+```
+$ go get -v github.com/codeskyblue/kexec/cmds/kexec
+$ kexec python main.py
+# Ctrl+C
+python is terminating ...
 ```
 
 ## PS
